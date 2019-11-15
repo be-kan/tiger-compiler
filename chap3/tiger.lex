@@ -14,7 +14,7 @@ exception NotAnInt
 
 fun getInt(optionInt : int option) = case optionInt of
   SOME(n) => n
-  | _ => raise NotAnInt 
+  | _ => raise NotAnInt
 
 %%
 %header (functor TigerLexFun(structure Tokens: Tiger_TOKENS));
