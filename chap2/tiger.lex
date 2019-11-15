@@ -1,4 +1,5 @@
 (* vim: set filetype=sml: *)
+
 type pos = int
 type lexresult = Tokens.token
 
@@ -12,9 +13,10 @@ exception NotAnInt
 
 fun getInt(optionInt : int option) = case optionInt of
   SOME(n) => n
-  | _ => raise NotAnInt 
+  | _ => raise NotAnInt
 
 %%
+
 %s COMMENT;
 letter = [a-zA-Z];
 digit = [0-9];
@@ -22,7 +24,9 @@ id = {letter}({letter}|{digit}|_)*;
 space = [\ \t];
 quote = ["];
 notQuote = [^"];
+
 %%
+
 <INITIAL>"var"      => (Tokens.VAR(yypos, yypos + size yytext));
 <INITIAL>"type"     => (Tokens.TYPE(yypos, yypos + size yytext));
 <INITIAL>"function" => (Tokens.FUNCTION(yypos, yypos + size yytext));
@@ -54,20 +58,16 @@ notQuote = [^"];
 <INITIAL>"*"  => (Tokens.TIMES(yypos, yypos + size yytext));
 <INITIAL>"-"  => (Tokens.MINUS(yypos, yypos + size yytext));
 <INITIAL>"+"  => (Tokens.PLUS(yypos, yypos + size yytext));
-
-<INITIAL>"{" => (Tokens.LBRACE(yypos, yypos + size yytext));
-<INITIAL>"}" => (Tokens.RBRACE(yypos, yypos + size yytext));
-
-<INITIAL>"(" => (Tokens.LPAREN(yypos, yypos + size yytext));
-<INITIAL>")" => (Tokens.RPAREN(yypos, yypos + size yytext));
-
-<INITIAL>"[" => (Tokens.LBRACK(yypos, yypos + size yytext));
-<INITIAL>"]" => (Tokens.RBRACK(yypos, yypos + size yytext));
-
-<INITIAL>"." => (Tokens.DOT(yypos, yypos + size yytext));
-<INITIAL>"," => (Tokens.COMMA(yypos, yypos + size yytext));
-<INITIAL>";" => (Tokens.SEMICOLON(yypos, yypos + size yytext));
-<INITIAL>":" => (Tokens.COLON(yypos, yypos + size yytext));
+<INITIAL>"{"  => (Tokens.LBRACE(yypos, yypos + size yytext));
+<INITIAL>"}"  => (Tokens.RBRACE(yypos, yypos + size yytext));
+<INITIAL>"("  => (Tokens.LPAREN(yypos, yypos + size yytext));
+<INITIAL>")"  => (Tokens.RPAREN(yypos, yypos + size yytext));
+<INITIAL>"["  => (Tokens.LBRACK(yypos, yypos + size yytext));
+<INITIAL>"]"  => (Tokens.RBRACK(yypos, yypos + size yytext));
+<INITIAL>"."  => (Tokens.DOT(yypos, yypos + size yytext));
+<INITIAL>","  => (Tokens.COMMA(yypos, yypos + size yytext));
+<INITIAL>";"  => (Tokens.SEMICOLON(yypos, yypos + size yytext));
+<INITIAL>":"  => (Tokens.COLON(yypos, yypos + size yytext));
 
 <INITIAL>{id}                       => (Tokens.ID(yytext, yypos, yypos + size yytext));
 <INITIAL>{digit}+                   => (Tokens.INT(getInt (Int.fromString yytext), yypos, yypos + size yytext));
