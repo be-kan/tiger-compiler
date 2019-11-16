@@ -1,9 +1,3 @@
 #!/bin/bash
 
-image=sources.x86-linux
-
-if [[ $(uname) = Darwin ]]; then
-  image=sources.x86-darwin
-fi
-
-sml @SMLload=${image} "$@"
+sml @SMLload=sources.x86-linux "$@"
